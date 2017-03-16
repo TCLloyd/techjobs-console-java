@@ -76,11 +76,31 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
 
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> i : allJobs) {
+            for (String z : i.keySet()) {
+                String key = z.toString();
+                String j = i.get(z).toString();
+                if (key.toLowerCase().contains(value.toLowerCase()) || j.toLowerCase().contains(value.toLowerCase())) {
+                    if (!(jobs.contains(i))) {
+                        jobs.add(i);
+                    }
+                }
+            }
+
+        }
         return jobs;
     }
 
